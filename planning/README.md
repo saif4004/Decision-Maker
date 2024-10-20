@@ -17,3 +17,39 @@
 - as a **creator**, i want to have **access** to previous **polls** i've created because i might need them again
 - as a **user**, i want to save my **choices** because i might use them again in future **polls**
 - as a **user**, i want to see a **history** of previous **polls** because i want to remember previous **results**
+
+# routes
+## /users
+- Browse: GET /users => get all users
+- Read: GET /users:id => see single user
+- ~~Edit: POST /users:id~~ => probably stretch
+- ~~Add: POST /users~~ => probably stretch
+- ~~Delete: POST /users:id/delete~~ => probably stretch
+
+## /polls
+- Browse: GET /polls => get all polls
+- Read: GET /polls:id => see a single poll
+- Edit: POST /polls:id => useful if poll creator made a mistake or needs to add a new option
+- Add: POST /polls => create new poll
+- ~~Delete: POST /polls:id/delete~~ => no need for demo
+
+## /users_polls
+- Browse: GET /users_polls => get all data of how users have interacted with polls
+- Read: GET /users_polls:id => useful to check if a user is a poll creator or not
+- ~~Edit: POST /users_polls:id~~ => probably not needed?
+- Add: POST /users_polls => not sure if needed
+- ~~Delete: POST /users_polls:id/delete~~ => probably not needed
+
+## choices
+- Browse: GET /choices => get all choices
+- Read: GET /choices:id => get a single choice
+- Edit: POST /choices:id => useful if creator needs to edit a choice or user changes their mind? possibly stretch
+- Add: POST /choices => add a new choice to a poll
+- Delete: POST /choices:id/delete => delete a choice from a poll
+
+## responses
+- Browse: GET /responses => get all responses
+- Read: GET /responses:id => get a single response
+- Edit: POST /responses:id => useful if user changes their mind? possibly stretch
+- Add: POST /responses => user submits a response
+- ~~Delete: POST /responses:id/delete~~ => probably stretch
