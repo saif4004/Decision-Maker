@@ -7,4 +7,11 @@ const getResponses = () => {
     });
 };
 
-module.exports = { getResponses };
+const getResponseById = (id) => {
+  return db.query('SELECT * FROM responses WHERE id = $1', [id])
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getResponses, getResponseById };

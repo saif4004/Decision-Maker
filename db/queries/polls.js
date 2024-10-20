@@ -7,4 +7,11 @@ const getPolls = () => {
     });
 };
 
-module.exports = { getPolls };
+const getPollById = (id) => {
+  return db.query('SELECT * FROM polls WHERE id = $1', [id])
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getPolls, getPollById };

@@ -7,6 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const pollCreatorQueries = require('../db//queries/poll_creators');
 
 router.get('/', (req, res) => {
   res.render('users_polls');

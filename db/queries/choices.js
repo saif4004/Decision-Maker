@@ -7,4 +7,11 @@ const getChoices = () => {
     });
 };
 
-module.exports = { getChoices };
+const getChoiceById = (id) => {
+  return db.query('SELECT * FROM choices WHERE id = $1', [id])
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getChoices, getChoiceById };
