@@ -3,4 +3,36 @@
 body,
 html {
   margin: 0;
+  padding: 1em;
 }
+
+#opt_a, #opt_b, #opt_c {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+.nav_bar  {
+  list-style-type: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row-reverse;
+
+}
+.nav_bar li {
+  text-align: center; /* Center-align text inside each list item */
+}
+
+.nav_bar li a {
+  display: block;
+  padding: 14px 20px;
+  text-decoration: none; /* Remove underline */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+}
+
+// #add_option_btn {
+//   width: 50%;
+//   height: 50%;
+// }
