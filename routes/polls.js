@@ -1,16 +1,16 @@
 /*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into /users,
- *   these routes are mounted onto /users
+ * All routes for Polls are defined here
+ * Since this file is loaded in server.js into /polls,
+ *   these routes are mounted onto /polls
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const pollQueries = require('../db/queries/polls');
 
 router.get('/', (req, res) => {
-  res.render('users');
+  res.render('polls');
 });
 
 module.exports = router;

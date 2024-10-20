@@ -11,7 +11,7 @@ CREATE TABLE polls (
   poll_link VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE users_polls (
+CREATE TABLE poll_creators (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE,
