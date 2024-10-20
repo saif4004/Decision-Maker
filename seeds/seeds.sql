@@ -52,7 +52,7 @@ INSERT INTO polls (question, creator_link, poll_link) VALUES
 ('What should we order for lunch?', 'creator24', 'poll24'),
 ('What hobby should we try together?', 'creator25', 'poll25');
 
-INSERT INTO users_polls (user_id, poll_id, creator) VALUES
+INSERT INTO poll_creators (user_id, poll_id, creator) VALUES
 (1, 1, false),
 (2, 2, true),
 (3, 3, false),

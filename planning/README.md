@@ -33,12 +33,12 @@
 - Add: POST /polls => create new poll
 - ~~Delete: POST /polls:id/delete~~ => no need for demo
 
-## /users_polls
-- Browse: GET /users_polls => get all data of how users have interacted with polls
-- Read: GET /users_polls:id => useful to check if a user is a poll creator or not
-- ~~Edit: POST /users_polls:id~~ => probably not needed?
-- Add: POST /users_polls => not sure if needed
-- ~~Delete: POST /users_polls:id/delete~~ => probably not needed
+## /poll_creators
+- Browse: GET /poll_creators => get all data of how users have interacted with polls
+- Read: GET /poll_creators:id => useful to check if a user is a poll creator or not
+- ~~Edit: POST /poll_creators:id~~ => probably not needed?
+- Add: POST /poll_creators => not sure if needed
+- ~~Delete: POST /poll_creators:id/delete~~ => probably not needed
 
 ## choices
 - Browse: GET /choices => get all choices
