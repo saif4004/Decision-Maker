@@ -1,0 +1,33 @@
+CREATE TABLE users (
+ id SERIAL PRIMARY KEY NOT NULL,
+ name VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE polls (
+  id SERIAL PRIMARY KEY NOT NULL,
+  question TEXT NOT NULL,
+  creator_link VARCHAR(255) NOT NULL,
+  poll_link VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE users_polls (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE,
+  creator BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE choices (
+  id SERIAL PRIMARY KEY NOT NULL,
+  poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE,
+  title VARCHAR(255) NOT NULL,
+  description TEXT
+  );
+
+  CREATE TABLE responses (
+    id SERIAL PRIMARY KEY NOT NULL,
+    respondent_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    choice_id INTEGER REFERENCES choices(id) ON DELETE CASCADE,
+    ranking SMALLINT
+  );
