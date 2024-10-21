@@ -14,4 +14,13 @@ const getPollById = (id) => {
     });
 };
 
-module.exports = { getPolls, getPollById };
+const submitPoll = (question) => {
+  return db.query(`
+    INSERT INTO polls (question, creator_link, poll_link)
+    VALUES ($1, creator_link, poll_link)`, [question])
+  .then(data => {
+    return data.rows[0];
+  });
+};
+
+module.exports = { getPolls, getPollById, submitPoll };
