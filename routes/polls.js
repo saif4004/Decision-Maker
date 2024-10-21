@@ -10,7 +10,10 @@ const router  = express.Router();
 const pollQueries = require('../db/queries/polls');
 
 router.get('/', (req, res) => {
-  res.render('polls');
+  pollQueries.getPolls()
+  .then((polls) => {
+    res.render('polls.ejs',{polls});
+  });
 });
 
 module.exports = router;
