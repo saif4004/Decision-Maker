@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Users</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script defer src="/scripts/users.js"></script>
+</head>
+<body>
+  <nav>
+    <ul class="nav_bar">
+
+      <li><a href="Register.ejs">Register</a></li>
+      <li><a href="index.ejs">Home</a></li>
+  </ul>
+  <section>
+    <h1>Polls Questions</h1>
+    <ul>
+      <% polls.forEach(function(poll) { %> <!-- Loop through the polls -->
+        <li>
+            <strong>Question: </strong> <%= poll.question %> <br>
+            <strong>Creator Link:</strong> <a href="<%= poll.creator_link %>"><%= poll.creator_link %></a><br>
+            <strong>Poll Link:</strong> <a href="<%= poll.poll_link %>"><%= poll.poll_link %></a>
+        </li>
+      <% }); %>
+    </ul>
+  </section>
+
+</body>
+
+</html>
+
+
+
