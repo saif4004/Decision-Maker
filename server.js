@@ -48,6 +48,11 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+const pollsRouter = require('./routes/polls');
+app.use('/polls',pollsRouter);
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+
