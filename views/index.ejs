@@ -21,23 +21,37 @@
   <nav>
     <ul class="nav_bar">
 
-      <li><a href="Register.ejs">Register</a></li>
+      <li><a href="register.ejs">Register</a></li>
       <li><a href="login.ejs">Login</a></li>
       <li><a href="index.ejs">Home</a></li>
-
   </ul>
 
   </nav>
   <h1> Decision Maker </h1>
   <section>
-    <form action="" method="get" role="form" class="">
-      <h2>Question</h2>
-      <input type="text" name="question" id="question" value placeholder="Enter question">
-      <h2>Options</h2>
-      <input type="text" name="options[A]" id="opt_a" value placeholder="Option 1:">
-      <input type="text" name="options[B]" id="opt_b" value placeholder="Option 2:">
-      <input type="text" name="options[C]" id="opt_c" value placeholder="Option 3:">
-      <button type="button" onclick="" id="add_option_btn">Add option</button>
+    <form id="poll_form" action ="/routes/poll_creators.js" method="POST">
+      <div>
+        <label for="email">Please EnterYour Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+    </div>
+    <div id="options">
+      <div class="option">
+        <h2>Question</h2>
+        <input type="text" name="question" id="question" value placeholder="Enter question">
+        <h2>Options</h2>
+        <label>Option 1:</label>
+        <input type="text" name="title_1" placeholder="Title">
+        <textarea name="descrption1" placeholder="Desciption (optional)"></textarea>
+        <label>Option 2:</label>
+        <input type="text" name="title_2" placeholder="Title">
+        <textarea name="descrption_2" placeholder="Desciption (optional)"></textarea>
+        <label>Option 3:</label>
+        <input type="text" name="title_3" placeholder="Title">
+        <textarea name="descrption_3" placeholder="Desciption (optional)"></textarea>
+      </div>
+    </div>
+      <button type="button" class="add-option-btn">Add option</button>
+      <button type="submit">Create Poll</button>
     </form>
   </section>
 </body>
