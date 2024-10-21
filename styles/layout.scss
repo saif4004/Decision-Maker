@@ -6,7 +6,7 @@ html {
   padding: 1em;
 }
 
-#opt_a, #opt_b, #opt_c {
+.option {
   display: flex;
   flex-direction: column;
   justify-content: center;
