@@ -12,7 +12,7 @@ const pollQueries = require('../db/queries/polls');
 router.get('/', (req, res) => {
   pollQueries.getPolls()
   .then((polls) => {
-    res.render('polls.ejs',{polls});
+    res.render('polls.ejs',{ polls });
   });
 });
 
