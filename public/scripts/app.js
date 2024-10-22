@@ -38,9 +38,9 @@ $(document).ready(function() {
       success: function(response) {
         console.log('Data successfully sent!');
         console.log(response);
-        // $('#adminLink').attr('href', response.adminLink).text(response.adminLink);
-        // $('#sharedLink').attr('href', response.sharedLink).text(response.sharedLink);
-        // $('.result').show();
+        $('#adminLink').attr('href', response.adminLink).text(response.adminLink);
+        $('#sharedLink').attr('href', response.sharedLink).text(response.sharedLink);
+        $('.result').show();
       },
       error: function(error) {
         console.error("Error submitting poll ",error);
@@ -95,7 +95,7 @@ $(document).ready(function() {
     $.ajax ({
       url:'/', //Voting routes
       method:'POST',
-      data: JSON.stringify(votingData),
+      data: votingData,
       success: function(response) {
         console.log('Data successfully sent!');
         console.log(response);
