@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS responses;
+DROP TABLE IF EXISTS choices;
+DROP TABLE IF EXISTS poll_creators;
+DROP TABLE IF EXISTS polls;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
  id SERIAL PRIMARY KEY NOT NULL,
  name VARCHAR(255) NOT NULL,
@@ -7,8 +13,14 @@ CREATE TABLE users (
 CREATE TABLE polls (
   id SERIAL PRIMARY KEY NOT NULL,
   question TEXT NOT NULL,
-  creator_link VARCHAR(255) NOT NULL,
-  poll_link VARCHAR(255) NOT NULL
+  creator_link TEXT,
+  poll_link TEXT,
+  title1 TEXT NOT NULL,
+  description1 TEXT,
+  title2 TEXT NOT NULL,
+  description2 TEXT,
+  title3 TEXT NOT NULL,
+  description3 TEXT
 );
 
 CREATE TABLE poll_creators (
@@ -18,16 +30,11 @@ CREATE TABLE poll_creators (
   creator BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE choices (
+CREATE TABLE responses (
   id SERIAL PRIMARY KEY NOT NULL,
+  respondent_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE,
-  title VARCHAR(255) NOT NULL,
-  description TEXT
-  );
-
-  CREATE TABLE responses (
-    id SERIAL PRIMARY KEY NOT NULL,
-    respondent_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    choice_id INTEGER REFERENCES choices(id) ON DELETE CASCADE,
-    ranking SMALLINT
+  choice1 TEXT NOT NULL,
+  choice2 TEXT NOT NULL,
+  choice3 TEXT NOT NULL
   );
