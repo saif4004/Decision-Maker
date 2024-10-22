@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const pollQueries = require('../db/queries/polls');
 
-// GET /polls/
+// GET /polls
 router.get('/', (req, res) => {
   pollQueries.getPolls()
   .then((polls) => {
@@ -26,10 +26,24 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// GET /polls/creators
+router.get('/creators', (req, res) => {
+  const creatorId = req.params.id;
+  pollQueries.getPollsByCreator(creatorId)
+  .then((creator) => {
+    res.render('polls/creators', creator)
+  });
+});
+
 // POST /polls/create_poll
-router.get('/create_poll', (req, res) => {
-  console.log('*** req: ', req);
-  pollQueries.submitPoll()
+router.post('/create_poll', (req, res) => {
+  const pollQuestion = req.body.question;
+  const creatorLink = req.body.creator_link;
+  const pollLink = req.body.poll_link;
+  pollQueries.submitPollQuestion(pollQuestion, creatorLink, pollLink)
+  .then((poll) => {
+    res.render('polls/create_poll', { poll })
+  });
 });
 
 module.exports = router;
