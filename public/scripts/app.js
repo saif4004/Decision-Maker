@@ -92,17 +92,18 @@ $(document).ready(function() {
       question: $('.question_display').text(),
       votes: votingCount
     };
-    $.ajax ({
-      url:'/', //Voting routes
-      method:'POST',
-      data: votingData,
-      success: function(response) {
-        console.log('Data successfully sent!');
-        console.log(response);
-      },
-      error: function(error) {
-        console.error("Error submitting votes ",error);
-      }
-    });
+    console.log(votingData);
+    // $.ajax ({
+    //   url:'/', //Voting routes
+    //   method:'POST',
+    //   data: votingData,
+    //   success: function(response) {
+    //     console.log('Data successfully sent!');
+    //     console.log(response);
+    //   },
+    //   error: function(error) {
+    //     console.error("Error submitting votes ",error);
+    //   }
+    // });
   });
 });

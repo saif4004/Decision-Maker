@@ -37,13 +37,12 @@ router.get('/creators', (req, res) => {
 
 // POST /polls/create_poll
 router.post('/create_poll', (req, res) => {
-  console.log(req.body);
   const pollQuestion = req.body.question;
   const creatorLink = req.body.creator_link;
   const pollLink = req.body.poll_link;
   pollQueries.submitPollQuestion(pollQuestion, creatorLink, pollLink)
   .then((poll) => {
-    res.json({ poll })
+    res.render('polls/create_poll', { poll })
   });
 });
 
