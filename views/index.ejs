@@ -30,25 +30,27 @@
   <section>
     <form id="poll_form">
       <div>
-        <label for="email">Please Enter Your Email:</label><br>
-        <input type="email" id="email" name="email"><br>
+        <!-- <label for="email">Please Enter Your Email:</label><br>
+        <input type="email" id="email" name="email"><br> -->
     </div>
-    <div id="options">
-      <div class="option">
+
+      <div id="question">
         <h2>Question</h2>
-        <input type="text" name="question" id="question" value placeholder="Enter question">
+        <input type="text" name="question" id="question" placeholder="Enter question">
+      </div>
+        <div id="options">
         <h2>Options</h2>
         <label>Option 1:</label>
         <input type="text" name="title_1" placeholder="Title">
-        <textarea name="descrption1" placeholder="Desciption (optional)"></textarea>
+        <textarea name="descrption_1" placeholder="Desciption (optional)"></textarea>
         <label>Option 2:</label>
         <input type="text" name="title_2" placeholder="Title">
         <textarea name="descrption_2" placeholder="Desciption (optional)"></textarea>
         <label>Option 3:</label>
         <input type="text" name="title_3" placeholder="Title">
         <textarea name="descrption_3" placeholder="Desciption (optional)"></textarea>
+
       </div>
-    </div>
       <button type="button" class="add-option-btn">Add option</button>
       <button type="submit">Create Poll</button>
     </form>
