@@ -9,8 +9,14 @@ const express = require('express');
 const router  = express.Router();
 const userQueries = require('../db/queries/users');
 
+// GET /users
 router.get('/', (req, res) => {
-  res.render('users');
+  userQueries.getUsers()
+  .then((polls) => {
+    res.render('users',{ users });
+  });
 });
+
+
 
 module.exports = router;
