@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// POST /choices/create_choices
+// POST /choices/create_choices (implement into submitPoll)
 router.post('choices/create_choices', (req, res) => {
   const title1 = req.body.title_1;
   const description1 = req.body.description1;

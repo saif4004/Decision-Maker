@@ -32,7 +32,7 @@ $(document).ready(function() {
       descriptions: [desc_1, desc_2, desc_3]
     };
     $.ajax({
-      url: '/polls/create_poll', //route goes here
+      url: '/polls/create_poll', //End point go here
       method: 'POST',
       data: pollData,
       success: function(response) {
