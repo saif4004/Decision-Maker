@@ -13,7 +13,7 @@ const pollQueries = require('../db/queries/polls');
 router.get('/', (req, res) => {
   pollQueries.getPolls()
   .then((polls) => {
-    res.render('polls.ejs',{ polls });
+    res.render('polls',{ polls });
   });
 });
 
@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => {
   const pollId = req.params.id;
   pollQueries.getPollById(pollId)
   .then((poll) => {
-    res.render('polls/:id', poll)
+    res.render('polls', { polls: [poll] });
   });
 });
 

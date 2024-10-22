@@ -25,17 +25,27 @@
       <li><a href="index.ejs">Home</a></li>
   </ul>
   <section>
-    <h1>Polls Questions</h1>
-    <ul>
+  <h1>Polls Questions</h1>
+  <ul>
+    <% if (Array.isArray(polls) && polls.length > 0) { %>
       <% polls.forEach(function(poll) { %> <!-- Loop through the polls -->
         <li>
-            <strong>Question: </strong> <%= poll.question %> <br>
-            <strong>Creator Link:</strong> <a href="<%= poll.creator_link %>"><%= poll.creator_link %></a><br>
-            <strong>Poll Link:</strong> <a href="<%= poll.poll_link %>"><%= poll.poll_link %></a>
+          <strong>Question: </strong> <%= poll.question %> <br>
+          <strong>Creator Link:</strong> <a href="<%= poll.creator_link %>"><%= poll.creator_link %></a><br>
+          <strong>Poll Link:</strong> <a href="<%= poll.poll_link %>"><%= poll.poll_link %></a>
         </li>
       <% }); %>
-    </ul>
-  </section>
+    <% } else if (polls.length === 1) { %> <!-- Render a single poll if there's only one -->
+      <li>
+        <strong>Question: </strong> <%= polls[0].question %> <br>
+        <strong>Creator Link:</strong> <a href="<%= polls[0].creator_link %>"><%= polls[0].creator_link %></a><br>
+        <strong>Poll Link:</strong> <a href="<%= polls[0].poll_link %>"><%= polls[0].poll_link %></a>
+      </li>
+    <% } else { %> <!-- If no polls are found -->
+      <li>No polls available.</li>
+    <% } %>
+  </ul>
+</section>
 
 </body>
 

@@ -38,9 +38,70 @@ $(document).ready(function() {
       success: function(response) {
         console.log('Data successfully sent!');
         console.log(response);
+        // $('#adminLink').attr('href', response.adminLink).text(response.adminLink);
+        // $('#sharedLink').attr('href', response.sharedLink).text(response.sharedLink);
+        // $('.result').show();
       },
       error: function(error) {
         console.error("Error submitting poll ",error);
+      }
+    });
+    // Display the poll question and options
+
+    $('.question_display').text(pollData.question); // Set the question
+    $('.options_display').empty(); // Clear previous options
+
+    // Loop through the options and add them to the list
+    pollData.options.forEach(function(option, index) {
+      $('.options_display').append(`<li><strong>Option ${index + 1}:</strong> ${option}</li>`);
+    });
+
+    // display section
+    $('.poll_display').show();
+
+    //Dropdowns for options starts here
+
+    //clear the voting sections before creating dropdown
+    $('.options_ranks').empty();
+
+    //loop through to make the dropdowns
+    pollData.options.forEach(function(opt,index) {
+      let votingDropDowns =`
+        <label for="options_votes_${index}">Vote for ${opt}</label>
+        <select class="options_votes_${index}" name="options_votes_${index}">
+        <option value="">Select rank</option>`;
+        for (let i =0; i < pollData.options.length; i++) {
+          votingDropDowns += `<option value="${i+1}">${i+1}</option>`;
+        }
+        votingDropDowns += `</select>`;
+        $('.options_votes').append(votingDropDowns);
+    });
+
+  });
+
+  //Handle voting here
+
+  $('#vote').submit(function(event) {
+    event.preventDefault();
+    const votingCount =[];
+    $('.options_votes select').each(function(index) {
+      const vote = $(this).val();
+      votingCount.push({option: index+1, vote: parseInt(vote)});
+    });
+    const votingData = {
+      question: $('.question_display').text(),
+      votes: votingCount
+    };
+    $.ajax ({
+      url:'/', //Voting routes
+      method:'POST',
+      data: JSON.stringify(votingData),
+      success: function(response) {
+        console.log('Data successfully sent!');
+        console.log(response);
+      },
+      error: function(error) {
+        console.error("Error submitting votes ",error);
       }
     });
   });
