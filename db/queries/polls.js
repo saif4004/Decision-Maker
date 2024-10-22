@@ -14,13 +14,25 @@ const getPollById = (id) => {
     });
 };
 
-const submitPoll = (question) => {
+const getPollsByCreator = (id) => {
+  return db.query(`
+    SELECT users.name, polls.id
+    FROM poll_creators
+    JOIN users ON user_id = users.id
+    JOIN polls ON poll_id = polls.id
+    WHERE user.id = $1`, [id])
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
+const submitPollQuestion = (question, creatorLink, pollLink) => {
   return db.query(`
     INSERT INTO polls (question, creator_link, poll_link)
-    VALUES ($1, creator_link, poll_link)`, [question])
+    VALUES ($1, $2, $3)`, [question, creatorLink, pollLink])
   .then(data => {
     return data.rows[0];
   });
 };
 
-module.exports = { getPolls, getPollById, submitPoll };
+module.exports = { getPolls, getPollById, getPollsByCreator, submitPollQuestion };
