@@ -26,10 +26,12 @@ const getPollsByCreator = (id) => {
     });
 };
 
+// change polls table to allow null links?
 const submitPollQuestion = (question, creatorLink, pollLink) => {
   return db.query(`
     INSERT INTO polls (question, creator_link, poll_link)
-    VALUES ($1, $2, $3)`, [question, creatorLink, pollLink])
+    VALUES ($1, $2, $3)
+    RETURNING *`, [question, 1, 1])
   .then(data => {
     return data.rows[0];
   });

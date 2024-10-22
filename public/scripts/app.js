@@ -32,9 +32,9 @@ $(document).ready(function() {
       descriptions: [desc_1, desc_2, desc_3]
     };
     $.ajax({
-      url: '/', //End point go here
+      url: '/polls/create_poll', //End point go here
       method: 'POST',
-      data: JSON.stringify(pollData),
+      data: pollData,
       success: function(response) {
         console.log('Data successfully sent!');
         console.log(response);

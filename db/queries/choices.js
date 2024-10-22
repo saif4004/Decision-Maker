@@ -15,6 +15,7 @@ const getChoiceById = (id) => {
 };
 
 const submitChoices = (title1, description1, title2, description2, title3, description3) => {
+  //loop through array c style
   return db.query(`
     INSERT INTO choices (title1, description1, title2, description2, title3, description3)
     VALUES ($1, $2, $3, $4, $5, $6)`, [title1, description1, title2, description2, title3, description3])
