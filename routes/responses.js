@@ -28,12 +28,15 @@ router.get('/:id', (req, res) => {
 
 // POST /responses/submit_responses
 router.post('/submit_responses', (req, res) => {
+  console.log("Inside the submit: ",req.body);
   const respondentId = req.body.respondent_id;
-  const choiceId = req.body.choice_id;
-  const ranking = req.body.ranking;
-  responseQueries.submitResponses(respondentId, choiceId, ranking)
+  const pollId = req.body.poll_id;
+  const choice1 = req.body.choices[0];
+  const choice2 = req.body.choices[1];
+  const choice3 = req.body.choices[2];
+  responseQueries.submitResponse(respondentId, pollId, choice1, choice2, choice3)
   .then((resopnse) => {
-    res.render('responses/submit_responses', { resopnse })
+    res.json(resopnse);
   });
 });
 

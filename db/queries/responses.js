@@ -14,4 +14,14 @@ const getResponseById = (id) => {
     });
 };
 
-module.exports = { getResponses, getResponseById };
+const submitResponse = (respondent_id, poll_id, choice1, choice2, choice3) => {
+  return db.query(`
+    INSERT INTO responses (respondent_id, poll_id, choice1, choice2, choice3)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *`, [respondent_id, poll_id, choice1, choice2, choice3])
+    .then(data => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getResponses, getResponseById, submitResponse };

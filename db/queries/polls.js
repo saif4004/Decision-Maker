@@ -20,19 +20,20 @@ const getPollsByCreator = (id) => {
     FROM poll_creators
     JOIN users ON user_id = users.id
     JOIN polls ON poll_id = polls.id
-    WHERE user.id = $1`, [id])
+    WHERE users.id = $1
+    AND creator IS TRUE`, [id])
     .then(data => {
       return data.rows[0];
     });
 };
 
-// change polls table to allow null links?
-const submitPollQuestion = (question, creatorLink, pollLink) => {
+const submitPollQuestion = (question, creator_link, poll_link, title1, description1, title2, description2, title3, description3) => {
   return db.query(`
-    INSERT INTO polls (question, creator_link, poll_link)
-    VALUES ($1, $2, $3)
-    RETURNING *`, [question, 1, 1])
+    INSERT INTO polls (question, creator_link, poll_link, title1, description1, title2, description2, title3, description3)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    RETURNING *`, [question, creator_link, poll_link, title1, description1, title2, description2, title3, description3])
   .then(data => {
+    console.log(data.rows[0]);
     return data.rows[0];
   });
 };
