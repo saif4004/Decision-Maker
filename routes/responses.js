@@ -8,6 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const responseQueries = require('../db/queries/responses');
+const pollsQueries = require('../db/queries/polls');
 
 // GET /responses
 router.get('/', (req, res) => {
@@ -28,15 +29,25 @@ router.get('/:id', (req, res) => {
 
 // POST /responses/submit_responses
 router.post('/submit_responses', (req, res) => {
-  console.log("Inside the submit: ",req.body);
   const respondentId = req.body.respondent_id;
-  const pollId = req.body.poll_id;
-  const choice1 = req.body.choices[0];
-  const choice2 = req.body.choices[1];
-  const choice3 = req.body.choices[2];
+  const pollId = req.body.pollId;
+  const choice1 = req.body.votes[0].option;
+  const choice2 = req.body.votes[1].option;
+  const choice3 = req.body.votes[2].option;
   responseQueries.submitResponse(respondentId, pollId, choice1, choice2, choice3)
-  .then((resopnse) => {
-    res.json(resopnse);
+  .then(() => {
+    pollsQueries.getPollById(pollId).then(poll => {
+    console.log("Poll by id: ",poll);
+    const templateVars = {
+      pollId: poll.id,
+      pollQuestion: poll.question,
+      creatorLink: poll.creator_link,
+      pollLink: poll.poll_link,
+      titles: [poll.title1, poll.title2, poll.title3],
+      descriptions: [poll.description1, poll.description2, poll.description3]
+    }
+    res.render('users',templateVars);
+    });
   });
 });
 

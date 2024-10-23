@@ -37,7 +37,7 @@ router.get('/creators', (req, res) => {
 
 // POST /polls/create_poll
 router.post('/create_poll', (req, res) => {
-  const url = 'localhost:8080/polls/';
+  const url = 'http://localhost:8080/polls/';
 
   const pollQuestion = req.body.question;
   const creatorLink = url + Math.random().toString(36).slice(2);
@@ -51,7 +51,16 @@ router.post('/create_poll', (req, res) => {
 
   pollQueries.submitPollQuestion(pollQuestion, creatorLink, pollLink, title1, description1, title2, description2, title3, description3)
   .then((poll) => {
-    res.json(poll);
+    console.log("create_poll poll ID: ",poll.id);
+    const templateVars = {
+      pollId: poll.id,
+      pollQuestion: poll.question,
+      creatorLink: poll.creator_link,
+      pollLink: poll.poll_link,
+      titles: [poll.title1, poll.title2, poll.title3],
+      descriptions: [poll.description1, poll.description2, poll.description3]
+    }
+    res.render('users', templateVars);
   });
 });
 
