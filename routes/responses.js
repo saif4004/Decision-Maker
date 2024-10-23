@@ -18,21 +18,18 @@ router.get('/', (req, res) => {
   });
 });
 
-// // GET /responses/:id
-// router.get('/:id', (req, res) => {
-//   const responseId = req.params.id;
-//   responseQueries.getResponseById(responseId)
-//   .then((response) => {
-//     res.render('responses/:id', response)
-//   });
-// });
 
 // GET /responses/:poll_id
-router.get('/:poll_id', (req, res) => {
+router.get('/:poll_id', (req, res) => { // make users.ejs redirect you to polls by id from this
   const responseId = req.params.poll_id;
   responseQueries.getResponsesByPollId(responseId)
   .then((response) => {
-    // res.json(response);
+    if (!response || response.length === 0) {
+      return res.render('results', {
+        choices: ["No options available"],
+        count: [0, 0, 0]
+      });
+    }
 
     let countChoice1 = 0;
     let countChoice2 = 0;
