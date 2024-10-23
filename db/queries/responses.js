@@ -14,6 +14,13 @@ const getResponseById = (id) => {
     });
 };
 
+const getResponsesByPollId = (id) => {
+  return db.query('SELECT * FROM responses WHERE poll_id = $1', [id])
+  .then(data => {
+    return data.rows[0];
+  });
+};
+
 const submitResponse = (respondent_id, poll_id, choice1, choice2, choice3) => {
   return db.query(`
     INSERT INTO responses (respondent_id, poll_id, choice1, choice2, choice3)
@@ -24,4 +31,4 @@ const submitResponse = (respondent_id, poll_id, choice1, choice2, choice3) => {
     });
 };
 
-module.exports = { getResponses, getResponseById, submitResponse };
+module.exports = { getResponses, getResponseById, submitResponse, getResponseById };

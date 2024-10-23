@@ -26,6 +26,15 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// GET /responses/:poll_id
+router.get('/:poll_id', (req, res) => {
+  const responseId = req.params.id;
+  responseQueries.getResponseById(responseId)
+  .then((response) => {
+    res.render('responses/:poll_id', response)
+  });
+});
+
 // POST /responses/submit_responses
 router.post('/submit_responses', (req, res) => {
   console.log("Inside the submit: ",req.body);
