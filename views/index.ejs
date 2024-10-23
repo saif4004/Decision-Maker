@@ -29,28 +29,22 @@
   </nav>
   <h1> Decision Maker </h1>
   <section>
-    <form id="poll_form">
+    <form id="poll_form" method="POST" action="/polls/create_poll">
       <div>
-        <!-- <label for="email">Please Enter Your Email:</label>
-        <input type="email" id="email" name="email"> -->
-    </div>
-
-      <div id="question">
         <h2>Question</h2>
-        <input type="text" name="question" id="question" placeholder="Enter question">
+        <input type="text" name="question" id="question" placeholder="Enter question" required>
       </div>
-        <div id="options">
+      <div id="options">
         <h2>Options</h2>
         <label>Option 1:</label>
-        <input type="text" name="title1" placeholder="Title">
-        <textarea name="descrption_1" placeholder="Desciption (optional)"></textarea>
+        <input type="text" name="titles[]" placeholder="Title" required>
+        <textarea name="descriptions[]" placeholder="Description (optional)"></textarea>
         <label>Option 2:</label>
-        <input type="text" name="title2" placeholder="Title">
-        <textarea name="descrption_2" placeholder="Desciption (optional)"></textarea>
+        <input type="text" name="titles[]" placeholder="Title" required>
+        <textarea name="descriptions[]" placeholder="Description (optional)"></textarea>
         <label>Option 3:</label>
-        <input type="text" name="title3" placeholder="Title">
-        <textarea name="descrption_3" placeholder="Desciption (optional)"></textarea>
-
+        <input type="text" name="titles[]" placeholder="Title" required>
+        <textarea name="descriptions[]" placeholder="Description (optional)"></textarea>
       </div>
       <button type="button" class="add-option-btn">Add option</button>
       <button type="submit">Create Poll</button>
@@ -68,17 +62,6 @@
         <a id="sharedLink" href="" target="_blank"></a>
       </div>
     </div>
-  </section>
-  <section class="poll_display">
-    <h2>Created Poll</h2>
-    <h3 class="question_display"></h3>
-    <ul class="options_display"></ul>
-
-    <h3>Options vote</h3>
-  <form id="vote">
-    <div class="options_votes"></div>
-    <button type="submit">Submit vote</button>
-  </form>
   </section>
 </body>
 </html>

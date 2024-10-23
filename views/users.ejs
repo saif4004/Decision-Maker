@@ -1,34 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <title>Users</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css">
+  <link rel="stylesheet" href="/vendor/border-box.css">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/layout.css">
 
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/users.js"></script>
 </head>
 <body>
   <nav>
     <ul class="nav_bar">
-
       <li><a href="Register.ejs">Register</a></li>
       <li><a href="index.ejs">Home</a></li>
-
-  </ul>
-
+    </ul>
   </nav>
-  <h1>Users</h1>
-  <button id="fetch-users">Fetch Users via AJAX</button>
-  <ul id="users"></ul>
-</body>
 
+  <h1>Users</h1>
+
+  <% if (pollQuestion && titles.length > 0) { %>
+    <section>
+      <h2>Created Poll</h2>
+      <h3>Question: <%= pollQuestion %></h3>
+      <ul>
+        <% titles.forEach((title, index) => { %>
+          <li>Option <%= index + 1 %>: <%= title %></li>
+        <% }) %>
+      </ul>
+
+      <div>
+        <p><strong>Administrative Link:</strong> <a href="<%= creatorLink %>" target="_blank"><%= creatorLink %></a></p>
+        <p><strong>Submission Link:</strong> <a href="<%= pollLink %>" target="_blank"><%= pollLink %></a></p>
+      </div>
+    </section>
+  <% } else { %>
+    <p>No poll created yet.</p>
+  <% } %>
+  <section>
+    <form action="/responses/submit_responses" method="POST">
+      <h3>Vote for your favorite option</h3>
+
+      <% titles.forEach((title, index) => { %>
+        <label for="option<%= index %>">Rank <%= title %>:</label>
+
+        <select name="votes[<%= index %>][rank]" id="option<%= index %>">
+          <option value="">Select rank</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+
+        <!-- Hidden input to send the option name -->
+        <input type="hidden" name="votes[<%= index %>][option]" value="<%= title %>">
+      <% }) %>
+      <input type="hidden" name="pollId" value="<%= pollId %>">
+      <input type="hidden" name="question" value="<%= pollQuestion %>">
+      <button type="submit">Submit Vote</button>
+    </form>
+  </section>
+</body>
 </html>
+
+<!-- Inside the submit:  {
+  votes: [
+    { rank: '1', option: 'Burger ' },
+    { rank: '2', option: 'Pizza ' },
+    { rank: '3', option: 'Ice cream ' }
+  ],
+  question: 'Testing respone and voting '
+} -->

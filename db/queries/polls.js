@@ -33,7 +33,6 @@ const submitPollQuestion = (question, creator_link, poll_link, title1, descripti
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
     RETURNING *`, [question, creator_link, poll_link, title1, description1, title2, description2, title3, description3])
   .then(data => {
-    console.log(data.rows[0]);
     return data.rows[0];
   });
 };
