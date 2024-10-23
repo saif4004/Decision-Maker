@@ -8,6 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const pollQueries = require('../db/queries/polls');
+const helpers = require('./helpers');
 
 // GET /polls
 router.get('/', (req, res) => {
@@ -37,11 +38,9 @@ router.get('/creators', (req, res) => {
 
 // POST /polls/create_poll
 router.post('/create_poll', (req, res) => {
-  const url = 'http://localhost:8080/polls/';
-
   const pollQuestion = req.body.question;
-  const creatorLink = url + Math.random().toString(36).slice(2);
-  const pollLink = url + Math.random().toString(36).slice(2);
+  const creatorLink = helpers.randomUrlGenerator();
+  const pollLink = helpers.randomUrlGenerator();
   const title1 = req.body.titles[0];
   const description1 = req.body.descriptions[0];
   const title2 = req.body.titles[1];

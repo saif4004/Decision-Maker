@@ -9,6 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const responseQueries = require('../db/queries/responses');
 const pollsQueries = require('../db/queries/polls');
+const helpers = require('./helpers')
 
 // GET /responses
 router.get('/', (req, res) => {
@@ -39,35 +40,7 @@ router.get('/:poll_id', (req, res) => { // make users.ejs redirect you to polls 
     let string2 = response[0].choice2;
     let string3 = response[0].choice3;
 
-    // counting for string1
-    for (const index of response) {
-      if(index.choice1 === string1) {
-        countChoice1 += 2;
-      }
-      if (index.choice2 === string1) {
-        countChoice1 += 1;
-      }
-    };
-
-    // counting for string2
-    for (const index of response) {
-      if(index.choice1 === string2) {
-        countChoice2 += 2;
-      }
-      if (index.choice2 === string2) {
-        countChoice2 += 1;
-      }
-    };
-
-    // counting for string3
-    for (const index of response) {
-      if(index.choice1 === string3) {
-        countChoice3 += 2;
-      }
-      if (index.choice2 === string3) {
-        countChoice3 += 1;
-      }
-    };
+    const pollWinner = helpers.bordaCount(response);
 
     // logic for selecting winning choice and returning goes here
     console.log("countChoice1",countChoice1);
