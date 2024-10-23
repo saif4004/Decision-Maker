@@ -11,10 +11,13 @@ const userQueries = require('../db/queries/users');
 
 // GET /users
 router.get('/', (req, res) => {
-  userQueries.getUsers()
-  .then((polls) => {
-    res.render('users',{ users });
-  });
+  // Extract poll data from the query parameters
+  const pollQuestion = req.query.pollQuestion || '';
+  const creatorLink = req.query.creatorLink || '';
+  const pollLink = req.query.pollLink || '';
+  const titles = JSON.parse(req.query.titles || '[]');
+
+  res.render('users', { pollQuestion, creatorLink, pollLink, titles });
 });
 
 module.exports = router;
