@@ -30,12 +30,13 @@
   <h1> Decision Maker </h1>
   <section>
     <form id="poll_form" method="POST" action="/polls/create_poll">
-      <div>
+      <div id="options">
+        <h2>Email</h2>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
         <h2>Question</h2>
         <input type="text" name="question" id="question" placeholder="Enter question" required>
-      </div>
-      <div id="options">
         <h2>Options</h2>
+
         <label>Option 1:</label>
         <input type="text" name="titles[]" placeholder="Title" required>
         <textarea name="descriptions[]" placeholder="Description (optional)"></textarea>
@@ -49,19 +50,6 @@
       <button type="button" class="add-option-btn">Add option</button>
       <button type="submit">Create Poll</button>
     </form>
-  </section>
-  <section>
-    <div class="result">
-      <h2>Created poll</h2>
-      <div class="admin_link">
-        <strong>Administrative Link (View Results):</strong>
-        <a id="adminLink" href="" target="_blank"></a>
-      </div>
-      <div class="shared_link">
-        <strong>Submission Link (Share with friends):</strong>
-        <a id="sharedLink" href="" target="_blank"></a>
-      </div>
-    </div>
   </section>
 </body>
 </html>
