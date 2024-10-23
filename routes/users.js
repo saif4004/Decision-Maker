@@ -7,17 +7,23 @@
 
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const pollsQueries = require('../db/queries/polls');
 
-// GET /users
-router.get('/', (req, res) => {
-  // Extract poll data from the query parameters
-  const pollQuestion = req.query.pollQuestion || '';
-  const creatorLink = req.query.creatorLink || '';
-  const pollLink = req.query.pollLink || '';
-  const titles = JSON.parse(req.query.titles || '[]');
-
-  res.render('users', { pollQuestion, creatorLink, pollLink, titles });
+router.get('/:pollId', (req, res) => {
+  const pollId = req.params.pollId;
+  console.log("Did i get open: ",pollId);
+  pollsQueries.getPollById(pollId)
+    .then(poll => {
+       const templateVars = {
+        pollId: poll.id,
+        pollQuestion: poll.question,
+        creatorLink: poll.creator_link,
+        pollLink: poll.poll_link,
+        titles: [poll.title1, poll.title2, poll.title3],
+        descriptions: [poll.description1, poll.description2, poll.description3],
+      };
+      res.render('users', templateVars);
+    })
 });
 
 module.exports = router;
