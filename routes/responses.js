@@ -18,21 +18,70 @@ router.get('/', (req, res) => {
   });
 });
 
-// GET /responses/:id
-router.get('/:id', (req, res) => {
-  const responseId = req.params.id;
-  responseQueries.getResponseById(responseId)
-  .then((response) => {
-    res.render('responses/:id', response)
-  });
-});
+// // GET /responses/:id
+// router.get('/:id', (req, res) => {
+//   const responseId = req.params.id;
+//   responseQueries.getResponseById(responseId)
+//   .then((response) => {
+//     res.render('responses/:id', response)
+//   });
+// });
 
 // GET /responses/:poll_id
 router.get('/:poll_id', (req, res) => {
-  const responseId = req.params.id;
-  responseQueries.getResponseById(responseId)
+  const responseId = req.params.poll_id;
+  responseQueries.getResponsesByPollId(responseId)
   .then((response) => {
-    res.render('responses/:poll_id', response)
+    // res.json(response);
+
+    let countChoice1 = 0;
+    let countChoice2 = 0;
+    let countChoice3 = 0;
+
+    let string1 = response[0].choice1;
+    let string2 = response[0].choice2;
+    let string3 = response[0].choice3;
+
+    // counting for string1
+    for (const index of response) {
+      if(index.choice1 === string1) {
+        countChoice1 += 2;
+      }
+      if (index.choice2 === string1) {
+        countChoice1 += 1;
+      }
+    };
+
+    // counting for string2
+    for (const index of response) {
+      if(index.choice1 === string2) {
+        countChoice2 += 2;
+      }
+      if (index.choice2 === string2) {
+        countChoice2 += 1;
+      }
+    };
+
+    // counting for string3
+    for (const index of response) {
+      if(index.choice1 === string3) {
+        countChoice3 += 2;
+      }
+      if (index.choice2 === string3) {
+        countChoice3 += 1;
+      }
+    };
+
+    // logic for selecting winning choice and returning goes here
+    console.log("countChoice1",countChoice1);
+    console.log("countChoice2",countChoice2);
+    console.log("countChoice3",countChoice3);
+    const templateVars = {
+      choices: [string1,string2,string3],
+      count: [countChoice1,countChoice2,countChoice3]
+    };
+    console.log(templateVars);
+    res.render('results',templateVars);
   });
 });
 
@@ -46,14 +95,13 @@ router.post('/submit_responses', (req, res) => {
   responseQueries.submitResponse(respondentId, pollId, choice1, choice2, choice3)
   .then(() => {
     pollsQueries.getPollById(pollId).then(poll => {
-    console.log("Poll by id: ",poll);
     const templateVars = {
       pollId: poll.id,
       pollQuestion: poll.question,
       creatorLink: poll.creator_link,
       pollLink: poll.poll_link,
       titles: [poll.title1, poll.title2, poll.title3],
-      descriptions: [poll.description1, poll.description2, poll.description3]
+      descriptions: [poll.description1, poll.description2, poll.description3],
     }
     res.render('users',templateVars);
     });

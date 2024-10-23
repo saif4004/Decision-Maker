@@ -51,7 +51,6 @@ router.post('/create_poll', (req, res) => {
 
   pollQueries.submitPollQuestion(pollQuestion, creatorLink, pollLink, title1, description1, title2, description2, title3, description3)
   .then((poll) => {
-    console.log("create_poll poll ID: ",poll.id);
     const templateVars = {
       pollId: poll.id,
       pollQuestion: poll.question,

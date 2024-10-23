@@ -33,6 +33,7 @@ const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const pollsRouter = require('./routes/polls');
 const pollResponses = require('./routes/responses');
+const results = require('./routes/results');
 
 
 // Mount all resource routes
@@ -43,6 +44,8 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/polls', pollsRouter);
 app.use('/responses',pollResponses);
+app.use('/results',results);
+
 
 // Note: mount other resources here, using the same pattern above
 

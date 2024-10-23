@@ -17,7 +17,7 @@ const getResponseById = (id) => {
 const getResponsesByPollId = (id) => {
   return db.query('SELECT * FROM responses WHERE poll_id = $1', [id])
   .then(data => {
-    return data.rows[0];
+    return data.rows;
   });
 };
 
@@ -31,4 +31,5 @@ const submitResponse = (respondent_id, poll_id, choice1, choice2, choice3) => {
     });
 };
 
-module.exports = { getResponses, getResponseById, submitResponse, getResponseById };
+module.exports = { getResponses, getResponseById, submitResponse, getResponsesByPollId };
+
