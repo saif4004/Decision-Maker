@@ -37,16 +37,18 @@ router.get('/creators', (req, res) => {
 
 // POST /polls/create_poll
 router.post('/create_poll', (req, res) => {
+  const url = 'localhost:8080/polls/';
+
   const pollQuestion = req.body.question;
-  const creatorLink = Math.random().toString(36).slice(2, 8); // generates random string for creator link, need to add localhost...etc
-  const pollLink = Math.random().toString(36).slice(2, 8); // generates random string for user link, need to add localhost...etc
+  const creatorLink = url + Math.random().toString(36).slice(2);
+  const pollLink = url + Math.random().toString(36).slice(2);
   const title1 = req.body.titles[0];
   const description1 = req.body.descriptions[0];
   const title2 = req.body.titles[1];
   const description2 = req.body.descriptions[1];
   const title3 = req.body.titles[2];
   const description3 = req.body.descriptions[2];
-  console.log(req.body);
+
   pollQueries.submitPollQuestion(pollQuestion, creatorLink, pollLink, title1, description1, title2, description2, title3, description3)
   .then((poll) => {
     res.json(poll);
