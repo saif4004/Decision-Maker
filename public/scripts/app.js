@@ -2,6 +2,7 @@
 // Client facing scripts here
 $(document).ready(function() {
   let option_counter =0;
+  let pollData = {};
   //This on click function just adds another option field if the user wants more options.
   $('.add-option-btn').click(function() {
     option_counter++;
@@ -26,7 +27,7 @@ $(document).ready(function() {
     const desc_2 = $('textarea[name="descrption_2"').val();
     const desc_3 = $('textarea[name="descrption_3"').val();
 
-    const pollData = {
+     pollData = {
       question: question,
       titles: [title1, title2, title3],
       descriptions: [desc_1, desc_2, desc_3]
@@ -86,7 +87,8 @@ $(document).ready(function() {
     const votingCount =[];
     $('.options_votes select').each(function(index) {
       const vote = $(this).val();
-      votingCount.push({option: index+1, rank: parseInt(vote)});
+      const optionName = pollData.titles[index];
+      votingCount.push({option: optionName, rank: parseInt(vote)});
     });
     const votingData = {
       question: $('.question_display').text(),
