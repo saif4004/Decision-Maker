@@ -10,6 +10,7 @@ const router  = express.Router();
 const responseQueries = require('../db/queries/responses');
 const pollsQueries = require('../db/queries/polls');
 const helpers = require('./helpers')
+const sendEmail = require('../mailgun.js');
 
 // GET /responses
 router.get('/', (req, res) => {
@@ -21,18 +22,38 @@ router.get('/', (req, res) => {
 
 
 // GET /responses/:poll_id
-router.get('/:poll_id', (req, res) => { // make users.ejs redirect you to polls by id from this
+router.get('/:poll_id', (req, res) => {
   const responseId = req.params.poll_id;
   responseQueries.getResponsesByPollId(responseId)
   .then((response) => {
-    if (!response || response.length === 0) {
-      return res.render('results', {
-        choices: ["No options available"],
-        count: [0, 0, 0]
-      });
-    }
+    // if (!response || response.length === 0) {
+    //   return res.render('results', {
+    //     choices: ["No options available"],
+    //     count: [0, 0, 0]
+    //   });
+    // }
 
     const pollWinner = helpers.bordaCount(response);
+    console.log("pollWinner",pollWinner);
+    if(pollWinner[3]) {
+      // message there was a tie cause mail gun sucks
+      let string1 = pollWinner[0].choice1;
+      let string2 = pollWinner[1].choice2;
+      let string3 = pollWinner[2].choice3;
+
+      let countChoice1 = pollWinner[0].votes;
+      let countChoice2 = pollWinner[1].votes;
+      let countChoice3 = pollWinner[2].votes;
+
+      const templateVars = {
+        choices: [string1,string2,string3],
+        count: [countChoice1,countChoice2,countChoice3],
+        tie: true
+      };
+      // console.log("TEMPLATE: ",templateVars);
+      return res.render('results',templateVars);
+    }
+    // console.log("PollWinner: ",pollWinner);
     let string1 = pollWinner[0].winner;
     let string2 = pollWinner[1].choice2;
     let string3 = pollWinner[2].choice3;
@@ -40,7 +61,6 @@ router.get('/:poll_id', (req, res) => { // make users.ejs redirect you to polls 
     let countChoice1 = pollWinner[0].votes;
     let countChoice2 = pollWinner[1].votes;
     let countChoice3 = pollWinner[2].votes;
-    console.log(pollWinner);
 
     const templateVars = {
       choices: [string1,string2,string3],
@@ -58,9 +78,9 @@ router.post('/submit_responses', (req, res) => {
   let choice1 = req.body.votes[0].option;
   let choice2 = req.body.votes[1].option;
   let choice3 = req.body.votes[2].option;
-  // console.log("req.body: ",req.body.votes[0]);
+  // console.log("req.body: ",req.body);
   let choiceArray = req.body.votes;
-  console.log("choiceArray: ",choiceArray);
+  // console.log("choiceArray: ",choiceArray);
 
   for (const index of choiceArray) {
     // console.log("index: ",index.option);
@@ -74,9 +94,9 @@ router.post('/submit_responses', (req, res) => {
       choice3 = index.option;
     }
   }
-  console.log("choice1: ",choice1);
-  console.log("choice2: ",choice2);
-  console.log("choice3: ",choice3);
+  // console.log("choice1: ",choice1);
+  // console.log("choice2: ",choice2);
+  // console.log("choice3: ",choice3);
 
   responseQueries.submitResponse(respondentId, pollId, choice1, choice2, choice3)
   .then(() => {

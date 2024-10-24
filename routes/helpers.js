@@ -75,7 +75,13 @@ const bordaCount = function(response) {
   };
 
   if (winningStr === "") {
-    return console.log(tie);
+    let obj1 = { choice1: string1, votes: countChoice1 };
+    let obj2 = { choice2: string2, votes: countChoice2 };
+    let obj3 = { choice3: string3, votes: countChoice3 };
+    console.log(resultsArray);
+    resultsArray.push(obj1, obj2, obj3, true);
+    console.log(resultsArray);
+    return resultsArray;
   }
 };
 
