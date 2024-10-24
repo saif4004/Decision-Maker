@@ -1,3 +1,4 @@
+
 const randomUrlGenerator = function() {
   const url = 'http://localhost:8080/polls/';
   const link = url + Math.random().toString(36).slice(2);
@@ -7,6 +8,7 @@ const randomUrlGenerator = function() {
 const bordaCount = function(response) {
   let winningStr = "";
   let tie = 'There was a tie! Please change your rankings.'
+  let resultsArray = [];
   let countChoice1 = 0;
   let countChoice2 = 0;
   let countChoice3 = 0;
@@ -47,17 +49,29 @@ const bordaCount = function(response) {
 
   if (countChoice1 > countChoice2 && countChoice1 > countChoice3) {
     winningStr = string1;
-    return winningStr;
+    let obj1 = { winner: winningStr, votes: countChoice1 };
+    let obj2 = { choice2: string2, votes: countChoice2 };
+    let obj3 = { choice3: string3, votes: countChoice3 };
+    resultsArray.push(obj1, obj2, obj3);
+    return resultsArray;
   };
 
   if (countChoice2 > countChoice1 && countChoice2 > countChoice3) {
     winningStr = string2;
-    return winningStr;
+    let obj1 = { choice1: string1, votes: countChoice1 };
+    let obj2 = { winner: winningStr, votes: countChoice2 };
+    let obj3 = { choice3: string3, votes: countChoice3 };
+    resultsArray.push(obj2, obj1, obj3);
+    return resultsArray;
   };
 
   if (countChoice3 > countChoice2 && countChoice3 > countChoice1) {
     winningStr = string3;
-    return winningStr;
+    let obj1 = { choice1: string1, votes: countChoice1 };
+    let obj2 = { choice2: string2, votes: countChoice2 };
+    let obj3 = { winner: winningStr, votes: countChoice3 };
+    resultsArray.push(obj3, obj1, obj2);
+    return resultsArray;
   };
 
   if (winningStr === "") {
@@ -65,4 +79,4 @@ const bordaCount = function(response) {
   }
 };
 
-modules.export = { randomUrlGenerator, bordaCount }
+module.exports = { randomUrlGenerator, bordaCount };

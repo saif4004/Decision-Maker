@@ -32,25 +32,21 @@ router.get('/:poll_id', (req, res) => { // make users.ejs redirect you to polls 
       });
     }
 
-    let countChoice1 = 0;
-    let countChoice2 = 0;
-    let countChoice3 = 0;
-
-    let string1 = response[0].choice1;
-    let string2 = response[0].choice2;
-    let string3 = response[0].choice3;
-
     const pollWinner = helpers.bordaCount(response);
+    console.log("PollWinner: ",pollWinner);
+    let string1 = pollWinner[0].winner;
+    let string2 = pollWinner[1].choice2;
+    let string3 = pollWinner[2].choice3;
 
-    // logic for selecting winning choice and returning goes here
-    console.log("countChoice1",countChoice1);
-    console.log("countChoice2",countChoice2);
-    console.log("countChoice3",countChoice3);
+    let countChoice1 = pollWinner[0].votes;
+    let countChoice2 = pollWinner[1].votes;
+    let countChoice3 = pollWinner[2].votes;
+
     const templateVars = {
       choices: [string1,string2,string3],
       count: [countChoice1,countChoice2,countChoice3]
     };
-    console.log(templateVars);
+    console.log("TEMPLATE: ",templateVars);
     res.render('results',templateVars);
   });
 });

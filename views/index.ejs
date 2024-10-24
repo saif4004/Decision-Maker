@@ -7,6 +7,10 @@
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Permanent+Marker&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
@@ -27,10 +31,10 @@
   </ul>
 
   </nav>
-  <h1> Decision Maker </h1>
+  <h1 class="test"> Decision Maker </h1>
   <section>
     <form id="poll_form" method="POST" action="/polls/create_poll">
-      <div id="options">
+      <div id="choices">
         <h2>Email</h2>
         <input type="email" name="email" id="email" placeholder="Enter your email" required>
         <h2>Question</h2>
@@ -47,8 +51,10 @@
         <input type="text" name="titles[]" placeholder="Title" required>
         <textarea name="descriptions[]" placeholder="Description (optional)"></textarea>
       </div>
+      <div class="btn_div">
       <button type="button" class="add-option-btn">Add option</button>
       <button type="submit">Create Poll</button>
+    </div>
     </form>
   </section>
 </body>

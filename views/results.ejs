@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Users</title>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Pangolin&family=Permanent+Marker&family=Rubik+Wet+Paint&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css">
   <link rel="stylesheet" href="/vendor/border-box.css">
   <link rel="stylesheet" href="/styles/main.css">
@@ -12,6 +17,13 @@
   <script src="/vendor/jquery-3.0.0.js"></script>
 </head>
 <body>
+  <nav>
+    <ul class="nav_bar">
+      <li><a href="Register.ejs">Register</a></li>
+      <li><a href="index.ejs">Home</a></li>
+    </ul>
+  </nav>
+  <section id="results_section">
   <h1>Poll Results</h1>
 
   <% let hasVotes = false; %>
@@ -30,10 +42,11 @@
     <ul>
       <% for (let i = 0; i < choices.length; i++) { %>
         <li>
-          <strong><%= choices[i] %></strong>: <%= count[i] %> votes
+          <%= choices[i] %>: <%= count[i] %> votes
         </li>
       <% } %>
     </ul>
   <% } %>
+</section>
 </body>
 </html>

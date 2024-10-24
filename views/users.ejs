@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Pangolin&family=Permanent+Marker&family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+
+
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css">
   <link rel="stylesheet" href="/vendor/border-box.css">
   <link rel="stylesheet" href="/styles/main.css">
@@ -21,34 +24,29 @@
     </ul>
   </nav>
 
-  <h1>Users</h1>
+  <h1 class="test">Users</h1>
   <h2>Users ID <%= pollId %> </h2>
 
 
   <% if (pollQuestion && titles.length > 0) { %>
-    <section>
-      <h2>Created Poll</h2>
-      <h3>Question: <%= pollQuestion %></h3>
-      <ul>
+    <section class="ul_section">
+      <h2>Poll Created</h2>
+      <h2>Question: <%= pollQuestion %></h2>
+      <ul class="option_ul">
         <% titles.forEach((title, index) => { %>
           <li>Option <%= index + 1 %>: <%= title %></li>
         <% }) %>
       </ul>
-
-      <div>
-        <p><strong>Administrative Link:</strong> <a href="/responses/<%= pollId %>" target="_blank"><%= pollLink %></a></p>
-        <p><strong>Submission Link:</strong> <a href="/users/<%= pollId %>" target="_blank"><%= pollLink %></a></p>
-      </div>
     </section>
   <% } else { %>
     <p>No poll created yet.</p>
   <% } %>
   <section>
     <form action="/responses/submit_responses" method="POST">
-      <h3>Vote for your favorite option</h3>
+      <h2 class="choices_h2">Rank your choices!</h2>
 
       <% titles.forEach((title, index) => { %>
-        <label for="option<%= index %>">Rank <%= title %>:</label>
+        <label class="label_option" for="option<%= index %>">Rank <%= title %>:</label>
 
         <select name="votes[<%= index %>][rank]" id="option<%= index %>">
           <option value="">Select rank</option>
@@ -62,7 +60,13 @@
       <% }) %>
       <input type="hidden" name="pollId" value="<%= pollId %>">
       <input type="hidden" name="question" value="<%= pollQuestion %>">
+      <div class="vote_button">
       <button type="submit">Submit Vote</button>
+    </div>
+      <div class="links_div">
+        <p>Administrative Link: <a href="/responses/<%= pollId %>" target="_blank"><%= pollLink %></a></p>
+        <p>Submission Link: <a href="/users/<%= pollId %>" target="_blank"><%= pollLink %></a></p>
+      </div>
     </form>
   </section>
 </body>
