@@ -10,7 +10,7 @@ const router  = express.Router();
 const responseQueries = require('../db/queries/responses');
 const pollsQueries = require('../db/queries/polls');
 const helpers = require('./helpers')
-const sendEmail = require('../mailgun.js');
+const {sendEmail} = require('../mailgun.js');
 
 // GET /responses
 router.get('/', (req, res) => {
@@ -26,13 +26,13 @@ router.get('/:poll_id', (req, res) => {
   const responseId = req.params.poll_id;
   responseQueries.getResponsesByPollId(responseId)
   .then((response) => {
-    // if (!response || response.length === 0) {
-    //   return res.render('results', {
-    //     choices: ["No options available"],
-    //     count: [0, 0, 0]
-    //   });
-    // }
-
+    if (!response || response.length === 0) {
+      return res.render('results', {
+        choices: ["No options available"],
+        count: [0, 0, 0],
+        tie: false
+      });
+    }
     const pollWinner = helpers.bordaCount(response);
     console.log("pollWinner",pollWinner);
     if(pollWinner[3]) {
@@ -64,7 +64,8 @@ router.get('/:poll_id', (req, res) => {
 
     const templateVars = {
       choices: [string1,string2,string3],
-      count: [countChoice1,countChoice2,countChoice3]
+      count: [countChoice1,countChoice2,countChoice3],
+      tie: false
     };
     // console.log("TEMPLATE: ",templateVars);
     res.render('results',templateVars);
@@ -74,16 +75,15 @@ router.get('/:poll_id', (req, res) => {
 // POST /responses/submit_responses
 router.post('/submit_responses', (req, res) => {
   const respondentId = req.body.respondent_id;
+  const userEmail = req.body.email;
+  sendEmail(userEmail,false);
   const pollId = req.body.pollId;
   let choice1 = req.body.votes[0].option;
   let choice2 = req.body.votes[1].option;
   let choice3 = req.body.votes[2].option;
-  // console.log("req.body: ",req.body);
   let choiceArray = req.body.votes;
-  // console.log("choiceArray: ",choiceArray);
 
   for (const index of choiceArray) {
-    // console.log("index: ",index.option);
     if(parseInt(index.rank) === 1) {
       choice1 = index.option;
     }
@@ -94,9 +94,7 @@ router.post('/submit_responses', (req, res) => {
       choice3 = index.option;
     }
   }
-  // console.log("choice1: ",choice1);
-  // console.log("choice2: ",choice2);
-  // console.log("choice3: ",choice3);
+
 
   responseQueries.submitResponse(respondentId, pollId, choice1, choice2, choice3)
   .then(() => {
@@ -108,6 +106,8 @@ router.post('/submit_responses', (req, res) => {
       pollLink: poll.poll_link,
       titles: [poll.title1, poll.title2, poll.title3],
       descriptions: [poll.description1, poll.description2, poll.description3],
+      poll: true,
+      mailgunemail: userEmail
     }
     res.render('users',templateVars);
     });

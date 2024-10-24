@@ -9,6 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const pollQueries = require('../db/queries/polls');
 const helpers = require('./helpers');
+const { sendEmail } = require('../mailgun');
 
 // GET /polls
 router.get('/', (req, res) => {
@@ -21,9 +22,30 @@ router.get('/', (req, res) => {
 // GET /polls/:id
 router.get('/:id', (req, res) => {
   const pollId = req.params.id;
+  const userEmail = 'cporfnqi@sharklasers.com';
+  console.log("Poll By ID: ",pollQueries.getPollById(pollId))
   pollQueries.getPollById(pollId)
   .then((poll) => {
-    res.render('polls', { polls: [poll] });
+    console.log("poll: ",poll);
+  const pollQuestion = poll.question;
+  const creatorLink = poll.creator_link;
+  const pollLink = poll.poll_link;
+  const title1 = poll.title1;
+  const description1 = poll.description1;
+  const title2 = poll.title2;
+  const description2 = poll.description2;
+  const title3 = poll.title3;
+  const description3 = poll.description3;
+  const templateVars = {
+    pollId: pollId,
+    pollQuestion: pollQuestion,
+    creatorLink: creatorLink,
+    pollLink: pollLink,
+    titles: [title1, title2, title3],
+    descriptions: [description1, description2, description3],
+    mailgunemail:userEmail
+  };
+    res.render('users', templateVars);
   });
 });
 
@@ -38,6 +60,8 @@ router.get('/creators', (req, res) => {
 
 // POST /polls/create_poll
 router.post('/create_poll', (req, res) => {
+  const userEmail = req.body.email;
+  console.log("UserEmail: ",userEmail);
   const pollQuestion = req.body.question;
   const creatorLink = helpers.randomUrlGenerator();
   const pollLink = helpers.randomUrlGenerator();
@@ -56,8 +80,10 @@ router.post('/create_poll', (req, res) => {
       creatorLink: poll.creator_link,
       pollLink: poll.poll_link,
       titles: [poll.title1, poll.title2, poll.title3],
-      descriptions: [poll.description1, poll.description2, poll.description3]
+      descriptions: [poll.description1, poll.description2, poll.description3],
+      mailgunemail:userEmail
     }
+    sendEmail(userEmail,true,poll.id);
     res.render('users', templateVars);
   });
 });

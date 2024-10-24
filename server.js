@@ -5,6 +5,7 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
+const {sendEmail} = require('./mailgun');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -55,6 +56,9 @@ app.use('/results',results);
 
 app.get('/', (req, res) => {
   res.render('index');
+});
+app.get('/test', (req, res) => {
+  sendEmail();
 });
 
 

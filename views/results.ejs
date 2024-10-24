@@ -36,9 +36,12 @@
     <% } %>
   <% } %>
 
+  <% if (!hasVotes) { %>
+    <p>No votes have been cast yet.</p>
+  <% } %>
   <% if (tie) { %>
     <p>THERE WAS A TIE! Please find someone to break the tie.</p>
-  <% } else { %>
+  <% } else { %> <!-- 'else' should be in the same EJS tag -->
     <ul>
       <% for (let i = 0; i < choices.length; i++) { %>
         <li>
