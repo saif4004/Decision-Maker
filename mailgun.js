@@ -2,8 +2,7 @@ const formData = require('form-data');
 const Mailgun = require('mailgun.js');
   const DOMAIN =  'sandboxa15e8ec9fb314669bf271a56672a5f4c.mailgun.org';
   const mailgun = new Mailgun(formData);
-  // const client = mailgun.client({username: 'api', key: process.env.API_KEY});
-  const client = mailgun.client({username: 'api', key:'e3d5481034922977a6393006fa277450-784975b6-b4195e69' });
+  const client = mailgun.client({username: 'api', key: process.env.API_KEY});
   const sendEmail = function (email,pollStatus,pollID) {
     console.log("POLL ID: ", pollID)
     tempEmail = email;
